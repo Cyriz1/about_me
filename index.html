@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Heyy! I'm Kenny</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #00bfff;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
+    #text {
+      font-size: 2em;
+      white-space: nowrap;
+      border-right: 3px solid #00bfff;
+      width: fit-content;
+      padding: 10px;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      from, to { border-color: transparent }
+      50% { border-color: #00bfff }
+    }
+  </style>
+</head>
+<body>
+  <div id="text"></div>
+
+  <script>
+    const messages = ["Heyy! I'm Kenny", "Welcome to my profile"];
+    const speed = 100; // typing speed in ms
+    const pause = 1200; // pause between messages
+    let i = 0;
+    let char = 0;
+    let currentMsg = messages[i];
+    let isDeleting = false;
+
+    function typeEffect() {
+      const textEl = document.getElementById('text');
+
+      if (!isDeleting) {
+        textEl.textContent = currentMsg.substring(0, char + 1);
+        char++;
+        if (char === currentMsg.length) {
+          isDeleting = true;
+          setTimeout(typeEffect, pause);
+          return;
+        }
+      } else {
+        textEl.textContent = currentMsg.substring(0, char - 1);
+        char--;
+        if (char === 0) {
+          isDeleting = false;
+          i = (i + 1) % messages.length;
+          currentMsg = messages[i];
+        }
+      }
+
+      setTimeout(typeEffect, isDeleting ? 50 : speed);
+    }
+
+    typeEffect();
+  </script>
+</body>
+</html>
