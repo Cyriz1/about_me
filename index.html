@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <title>Heyy! I'm Kenny</title>
+  <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #000;
       color: #00bfff;
-      font-family: 'Courier New', monospace;
+      font-family: 'Chilanka', cursive;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,7 +17,7 @@
     }
 
     #text {
-      font-size: 2em;
+      font-size: 2.5em;
       white-space: nowrap;
       border-right: 3px solid #00bfff;
       width: fit-content;
@@ -35,8 +36,8 @@
 
   <script>
     const messages = ["Heyy! I'm Kenny", "Welcome to my profile"];
-    const speed = 100; // typing speed in ms
-    const pause = 1200; // pause between messages
+    const speed = 150;  // typing speed (slower)
+    const pause = 1600; // pause after full message
     let i = 0;
     let char = 0;
     let currentMsg = messages[i];
@@ -63,7 +64,7 @@
         }
       }
 
-      setTimeout(typeEffect, isDeleting ? 50 : speed);
+      setTimeout(typeEffect, isDeleting ? 80 : speed);
     }
 
     typeEffect();
