@@ -6,48 +6,152 @@
   <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
   <style>
     body {
-      background-color: #000;
-      color: #00bfff;
+      margin: 0;
+      background-color: #111;
+      color: #fff;
       font-family: 'Chilanka', cursive;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      padding: 30px;
     }
 
-    #text {
+    .header {
       font-size: 2.5em;
-      white-space: nowrap;
+      color: #00bfff;
       border-right: 3px solid #00bfff;
+      white-space: nowrap;
+      overflow: hidden;
       width: fit-content;
-      padding: 10px;
       animation: blink 0.75s step-end infinite;
+      margin-bottom: 20px;
     }
 
     @keyframes blink {
       from, to { border-color: transparent }
       50% { border-color: #00bfff }
     }
+
+    .nyan {
+      background: url('https://media.giphy.com/media/sIIhZliB2McAo/giphy.gif') center/cover no-repeat;
+      height: 100px;
+      width: 400px;
+      margin-bottom: 20px;
+    }
+
+    .about-box {
+      border-top: 2px solid #aaa;
+      padding: 20px;
+      width: 400px;
+      background-color: #1e1e1e;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      border-radius: 10px;
+    }
+
+    .about-title {
+      font-size: 1.5em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .wave {
+      display: inline-block;
+      animation: wave 2.5s infinite ease-in-out;
+      transform-origin: 70% 70%;
+    }
+
+    @keyframes wave {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(20deg); }
+      50% { transform: rotate(-15deg); }
+      75% { transform: rotate(10deg); }
+    }
+
+    .about-content {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .about-text {
+      flex: 1;
+      line-height: 1.6;
+    }
+
+    .about-pixel {
+      width: 80px;
+      height: auto;
+    }
+
+    .profile-container {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    .pfp {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+    }
+
+    .orange-dude {
+      width: 40px;
+      height: 40px;
+      background: url('your_orange_dude.png') center/cover no-repeat;
+      position: absolute;
+      left: -45px;
+      transition: left 1s ease-in-out;
+    }
+
+    .orange-dude.show {
+      left: 90px;
+    }
   </style>
 </head>
 <body>
-  <div id="text"></div>
+
+  <div class="profile-container">
+    <img src="your_profile_pic.jpg" alt="profile" class="pfp">
+    <div class="orange-dude" id="dude"></div>
+  </div>
+
+  <div class="header" id="typingText"></div>
+
+  <div class="nyan"></div>
+
+  <div class="about-box">
+    <div class="about-title"><span class="wave">👋</span> About me</div>
+    <div class="about-content">
+      <div class="about-text">
+        🏛 I'm currently at <strong>University of Illinois Chicago</strong>.<br>
+        🧪 I'm a science guy idk<br>
+        📍 From Vietnam, living in the US
+      </div>
+      <img src="https://i.imgur.com/L5pVZ8T.png" alt="pixel-lab" class="about-pixel">
+    </div>
+  </div>
 
   <script>
+    // Typing effect
     const messages = ["Heyy! I'm Kenny", "Welcome to my profile"];
-    const speed = 150;  // typing speed (slower)
-    const pause = 1600; // pause after full message
+    const speed = 150;
+    const pause = 1600;
     let i = 0;
     let char = 0;
-    let currentMsg = messages[i];
     let isDeleting = false;
+    let currentMsg = messages[i];
+    const el = document.getElementById('typingText');
 
     function typeEffect() {
-      const textEl = document.getElementById('text');
-
       if (!isDeleting) {
-        textEl.textContent = currentMsg.substring(0, char + 1);
+        el.textContent = currentMsg.substring(0, char + 1);
         char++;
         if (char === currentMsg.length) {
           isDeleting = true;
@@ -55,7 +159,7 @@
           return;
         }
       } else {
-        textEl.textContent = currentMsg.substring(0, char - 1);
+        el.textContent = currentMsg.substring(0, char - 1);
         char--;
         if (char === 0) {
           isDeleting = false;
@@ -63,11 +167,18 @@
           currentMsg = messages[i];
         }
       }
-
       setTimeout(typeEffect, isDeleting ? 80 : speed);
     }
 
     typeEffect();
+
+    // Orange dude peek effect
+    const dude = document.getElementById("dude");
+    setInterval(() => {
+      dude.classList.add("show");
+      setTimeout(() => dude.classList.remove("show"), 2000);
+    }, 10000);
   </script>
+
 </body>
 </html>
